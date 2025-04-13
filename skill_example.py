@@ -68,7 +68,7 @@ class PipelineRunner:
         logger.info(f"Skill library retrieved: {self.skill_library}")
 
         self.palbot_interface = PalbotInterface()
-        self.gm.audio_log("Hello, I am PALBOT.")
+        self.gm.audio_log("Hello")
         # self.palbot_interface.audio_log(self.task_description)
 
         # self.skill_library = self.palbot_interface.retrieve_skill_library()
@@ -93,20 +93,25 @@ class PipelineRunner:
         while not self.success_flag:
             try:
 
-                self.run_information_gathering()
+                # self.run_information_gathering()
 
-                self.run_self_reflection()
-                if self.success_flag:
-                    logger.info("Task completed successfully.")
-                    break
+                # self.run_self_reflection()
+                # if self.success_flag:
+                #     logger.info("Task completed successfully.")
+                #     break
 
-                self.run_task_inference()
+                # self.run_task_inference()
 
-                self.run_action_planning()
+                # self.run_action_planning()
 
+                # pre_action = "speak(\'A B C\')"
+                pre_action = 'speak(text="Hello")'
+                pre_action = ['speak(text="Hello")', 'speak(text="World")']
+
+                self.memory.add_recent_history_kv(key=constants.PRE_ACTION, info=pre_action)
                 self.execute_action()
 
-                self.memory.save()
+                # self.memory.save()
 
                 self.count += 1
                 logger.info(f"---------------- Count Turn: {self.count} ----------------")
@@ -276,7 +281,6 @@ class PipelineRunner:
 
             self.memory.add_recent_history_kv(key=constants.ACTION, info=self.pipeline_info[constants.ACTIONS])
             self.memory.add_recent_history_kv(key=constants.SKILL_STEPS, info=str(self.pipeline_info[constants.ACTIONS]))
-            self.memory.add_recent_history_kv(key=constants.PRE_ACTION, info=self.pipeline_info[constants.ACTIONS])
             self.memory.add_recent_history_kv(key=constants.KEY_REASON_OF_LAST_ACTION, info=processed_response.get(constants.KEY_REASON_OF_LAST_ACTION))
 
         else:
@@ -309,7 +313,7 @@ if __name__ == "__main__":
     # Example usage
     llm_provider_config_path = "./conf/openai_config.json"
     embed_provider_config_path = "./conf/openai_config.json"
-    task_description = "Descripe the image you see. If you receive two images, please compare them and tell me the difference. If you see a game interface, please describe the game interface. If you see a robot, please describe the robot. If you see a person, please describe the person. If you see a car, please describe the car. If you see a house, please describe the house. If you see a tree, please describe the tree. If you see a flower, please describe the flower. If you see a mountain, please describe the mountain. If you see a river, please describe the river. If you see an ocean, please describe the ocean. If you see a sky, please describe the sky. If you see a cloud, please describe the cloud. If you see a sun, please describe the sun. If you see a moon, please describe the moon. If you see a star, please describe the star. If you see a rainbow, please describe the rainbow. If you see a lightning bolt, please describe the lightning bolt. NEVER SAY TASK is SUCCESSFUL."
+    task_description = "This is a test task description: NEVER SAY TASK is SUCCESSFUL."
     pipeline_runner = PipelineRunner(
                         llm_provider_config_path=llm_provider_config_path,
                         embed_provider_config_path=embed_provider_config_path,

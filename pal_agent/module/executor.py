@@ -39,11 +39,11 @@ class Executor(BaseProvider):
         # > Pre-processing
         params = self.memory.recent_history.copy()
 
-        skill_steps = params.get(constants.SKILL_STEPS, [])
+        # skill_steps = params.get(constants.SKILL_STEPS, [])
         # som_map = params.get(constants.SOM_MAP, {})
-        pre_screen_classification = params.get("pre_screen_classification", "")
-        screen_classification = params.get("screen_classification", "")
-        pre_action = params.get("pre_action", "")
+        # pre_screen_classification = params.get("pre_screen_classification", "")
+        # screen_classification = params.get("screen_classification", "")
+        skill_steps = pre_action = params.get("pre_action", "")[-1]
 
         # if config.is_game is True:
 
@@ -96,7 +96,7 @@ class Executor(BaseProvider):
         #     mouse_x, mouse_y = self.gm.get_mouse_position()
         #     # First, check if interaction left the target environment
         #     if not self.gm.check_active_window():
-        #         logger.warn(f"Target environment window is no longer active!")
+        #         logger.warning(f"Target environment window is no longer active!")
         #         cur_screenshot_path = self.gm.get_out_screen()
         #     else:
         #         cur_screenshot_path = self.gm.capture_screen()
@@ -113,7 +113,7 @@ class Executor(BaseProvider):
 
         # exec_info also has the list of successfully executed skills. skill_steps is the full list, which may differ if there were execution errors.
         pre_action = exec_info[constants.LAST_SKILL] #+ '(' + exec_info[constants.LAST_PARAMETERS] + ')'  # @HERE
-        pre_screen_classification = screen_classification
+        # pre_screen_classification = screen_classification
 
         self.memory.add_recent_history_kv(constants.ACTION, pre_action)
         if exec_info[constants.ERRORS]:
@@ -129,7 +129,7 @@ class Executor(BaseProvider):
             # f"{constants.MOUSE_POSITION}" : (mouse_x, mouse_y),
             f"{constants.PRE_ACTION}": pre_action,
             f"{constants.EXEC_INFO}": exec_info,
-            "pre_screen_classification": pre_screen_classification,
+            # "pre_screen_classification": pre_screen_classification,
         }
 
         self.memory.update_info_history(response)

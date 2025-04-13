@@ -208,7 +208,7 @@ class PalbotInterface:
         }
 
         if skill is None or len(skill) == 0 or skill == '' or skill[0] == '':
-            logger.warn(f"No actions to execute! Executing nop.")
+            logger.warning(f"No actions to execute! Executing nop.")
             self.execute_nop_skill()
 
             exec_info[constants.ERRORS] = False

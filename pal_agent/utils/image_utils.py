@@ -124,7 +124,7 @@ def draw_mouse_pointer(image: cv2.typing.MatLike, x, y):
     if mouse_cursor is None:
         logger.error("Failed to read mouse cursor image file.")
     elif x is None or y is None:
-        logger.warn("Mouse coordinates are missing.")
+        logger.warning("Mouse coordinates are missing.")
     else:
         new_size = (mouse_cursor.shape[1] // 4, mouse_cursor.shape[0] // 4)
         mouse_cursor = cv2.resize(mouse_cursor, new_size, interpolation=cv2.INTER_AREA)

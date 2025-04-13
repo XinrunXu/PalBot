@@ -3,8 +3,12 @@ import numpy as np
 import pyrealsense2 as rs
 import open3d as o3d
 from enum import Enum
+import cv2
 
-class RealSenseCamera:
+from pal_agent.utils.singleton import Singleton
+
+class RealSenseCamera(metaclass=Singleton):
+
     def __init__(self, width=640, height=480, mode = rs.rs400_visual_preset.high_accuracy):
         self.width = width
         self.height = height
@@ -87,8 +91,9 @@ class RealSenseCamera:
         self.pipeline.stop()
 
 def main():
+
     camera = RealSenseCamera()
-    camera.show_frames()
+    # camera.show_frames()
     color_frame, depth_frame, ir_l_image, ir_r_image = camera.get_aligned_frames()
     print(f"Color frame shape: {color_frame.shape}")
     print(f"Depth frame shape: {depth_frame.shape}")
@@ -96,6 +101,10 @@ def main():
     print(f"Camera Intrinsics: {camera_intrinsics}")
     intrinsics_matrix = camera.get_camera_intrinsics_matrix()
     print(f"Intrinsics Matrix: {intrinsics_matrix}")
+
+    import time
+    color_img_path = "tmp/" + time.strftime("%Y%m%d-%H%M%S") + "_color.jpg"
+    cv2.imwrite(color_img_path, color_frame)
 
     camera.close()
 

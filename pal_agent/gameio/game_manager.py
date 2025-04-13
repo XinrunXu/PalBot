@@ -140,7 +140,7 @@ class GameManager:
         }
 
         if actions is None or len(actions) == 0 or actions == '' or actions[0] == '':
-            logger.warn(f"No actions to execute! Executing nop.")
+            logger.warning(f"No actions to execute! Executing nop.")
             self.skill_registry.execute_nop_skill()
 
             exec_info[constants.ERRORS] = False
@@ -267,7 +267,7 @@ class GameManager:
         speak_command = []
         speak_command.append(f"{log_command}(text=\"{message}\")")
         self.execute_actions(speak_command)
-        
+
 
     def weak_skill_steps_parse(self, skill_steps):
 

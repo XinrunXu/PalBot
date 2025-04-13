@@ -18,6 +18,7 @@ from pal_agent.utils.dict_utils import kget
 from pal_agent.environment.skill import Skill
 from pal_agent.environment.utils import serialize_skills, deserialize_skills
 from pal_agent.utils.check import is_valid_value
+from pal_agent.utils.singleton import Singleton
 
 config = Config()
 logger = Logger()
@@ -50,7 +51,7 @@ def register_skill(name):
     return decorator
 
 
-class SkillRegistry():
+class SkillRegistry(metaclass=Singleton):
     """Base class for Skill Registry."""
 
     def __init__(self,
@@ -269,32 +270,37 @@ class SkillRegistry():
 
     def convert_expression_to_skill(self, expression: str = "open_map()"):
 
-        # @HERE Hack to pass???
+
+        if not expression.strip():
+            raise ValueError("Empty expression provided")
+
         if '(' not in expression:
             expression = expression + '()'
 
         try:
             parsed = ast.parse(expression, mode='eval')
 
+            # 处理单个函数调用
             if isinstance(parsed.body, ast.Call):
-                skill_name, skill_params = self.extract_function_info(expression)
-                return skill_name, skill_params
-            elif isinstance(parsed.body, ast.List):
+                return self.extract_function_info(expression)
 
+            # 处理函数调用列表
+            elif isinstance(parsed.body, ast.List):
                 skills_list = []
                 for call in parsed.body.elts:
                     if isinstance(call, ast.Call):
                         call_str = ast.unparse(call).strip()
-                        skill_name, skill_params = self.extract_function_info(call_str)
-                        skills_list.append((skill_name, skill_params))
+                        skills_list.append(self.extract_function_info(call_str))
                     else:
-                        raise ValueError("Input must be a list of function calls")
+                        raise ValueError(f"List contains non-call item: {ast.unparse(call)}")
                 return skills_list
+
+            # 处理其他情况
             else:
-                raise ValueError("Input must be a function call or a list of function calls")
+                raise ValueError(f"Expected function call or list of calls, got: {type(parsed.body).__name__}")
 
         except SyntaxError as e:
-            raise ValueError(f"Error parsing input: {e}")
+            raise ValueError(f"Invalid syntax in expression: {expression}") from e
 
 
     def extract_function_info(self, input_string: str = "open_map()"):
