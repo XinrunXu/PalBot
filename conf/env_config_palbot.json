@@ -1,0 +1,10 @@
+{
+    "env_short_name": "palbot",
+    "is_robot": true,
+    "skill_registry_name": "pal_agent.environment.palbot.skill_registry.RobotSkillRegistry",
+    "skill_configs": {
+        "skill_names_basic": [
+            "speak"
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "key_var": "OA_OPENAI_KEY",
+    "emb_model": "text-embedding-ada-002",
+    "comp_model": "gpt-4o-2024-05-13",
+    "is_azure": false,
+    "proxies": {
+        "http": "http://127.0.0.1:7890",
+        "https": "http://127.0.0.1:7890"
+    }
+}
