@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 from pal_agent.utils.singleton import Singleton
 from pal_agent import constants
 from pal_agent.utils.file_utils import assemble_project_path, get_project_root
-from pal_agent.log.logger import Logger
 from pal_agent.utils.json_utils import load_json
 from pal_agent.utils.dict_utils import kget
 
@@ -59,6 +58,7 @@ class Config(metaclass = Singleton):
 
         self.env_name = kget(self.env_config, constants.ENVIRONMENT_NAME, default='')
         self.is_robot = kget(self.env_config, constants.ENVIRONMENT_IS_ROBOT)
+        self.is_game = False
 
         self.skill_registry_name = kget(self.env_config, constants.SKILL_REGISTRY_KEY)
         self.skill_local_path = './res/skills/'
@@ -84,5 +84,3 @@ class Config(metaclass = Singleton):
 
         self.work_dir = assemble_project_path(os.path.join(self.work_dir, str(time.time())))
         Path(self.work_dir).mkdir(parents=True, exist_ok=True)
-
-        Logger.work_dir = self.work_dir

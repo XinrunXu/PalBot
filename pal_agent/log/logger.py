@@ -7,8 +7,11 @@ from datetime import datetime
 from typing import Optional, Union, List
 
 from pal_agent.utils import Singleton
+from pal_agent.config.config import Config
 
-class BaseLogger:
+config = Config()
+
+class BaseLogger(metaclass=Singleton):
     """Base logger class with core logging functionality"""
 
     def __init__(self, name: str = "Logger"):
@@ -51,14 +54,16 @@ class BaseLogger:
         self.log(logging.CRITICAL, message)
 
 
-class FileLoggerMixin:
+class FileLoggerMixin(metaclass=Singleton):
     """Mixin that adds file logging capability with timestamped filenames"""
 
-    def __init__(self, log_dir: Optional[str] = None, log_file: str = None):
+    def __init__(self,
+                 log_dir: str = config.work_dir,
+                 log_file: str = None):
         # 如果没有提供log_file，则使用带时间戳的默认文件名
         self.log_file = 'palbot.log'
 
-        self.log_dir = log_dir or "./tmp/logs"
+        self.log_dir = log_dir
         self._add_file_handler()
 
     def _add_file_handler(self):
@@ -78,7 +83,7 @@ class FileLoggerMixin:
         self._logger.addHandler(file_handler)
 
 
-class SystemMetricsFormatter(logging.Formatter):
+class SystemMetricsFormatter(logging.Formatter, metaclass=Singleton):
     """Formatter that adds system metrics to log records"""
 
     def format(self, record):
@@ -90,7 +95,7 @@ class SystemMetricsFormatter(logging.Formatter):
         return super().format(record)
 
 
-class SystemMetricsLoggerMixin:
+class SystemMetricsLoggerMixin(metaclass=Singleton):
     """Mixin that adds system metrics to logs"""
 
     def _configure_handlers(self):
@@ -112,7 +117,7 @@ class SystemMetricsLoggerMixin:
         self._logger.addHandler(stderr_handler)
 
 
-class ColoredFormatter(logging.Formatter):
+class ColoredFormatter(logging.Formatter, metaclass=Singleton):
     """Formatter that adds color to console output"""
 
     COLORS = {
@@ -131,7 +136,7 @@ class ColoredFormatter(logging.Formatter):
         return f"{color}{message}{self.RESET}" if color else message
 
 
-class ColoredLoggerMixin:
+class ColoredLoggerMixin(metaclass=Singleton):
     """Mixin that adds colored output to console logs"""
 
     def _configure_handlers(self):
@@ -156,7 +161,7 @@ class Logger(BaseLogger, FileLoggerMixin, SystemMetricsLoggerMixin, ColoredLogge
     def __init__(
         self,
         name: str = "Logger",
-        log_dir: Optional[str] = None,
+        log_dir: Optional[str] = config.work_dir,
         log_file: str = None
     ):
         BaseLogger.__init__(self, name)

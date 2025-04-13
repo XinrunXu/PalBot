@@ -8,7 +8,6 @@ from pal_agent.log.logger import Logger
 from pal_agent.config.config import Config
 from pal_agent.utils.file_utils import read_resource_file
 from pal_agent.utils.json_utils import parse_semi_formatted_text
-from pal_agent.provider.llm.openai_provider import OpenAIProvider
 from pal_agent.environment.skill_registry_factory import SkillRegistryFactory
 from pal_agent.provider.llm.llm_factory import LLMFactory
 from pal_agent.provider.palbot.palbot_interface import PalbotInterface
@@ -147,13 +146,13 @@ class PipelineRunner:
         self.pipeline_info[constants.IMAGE_INTRODUCTION] = image_introduction
 
         information_gathering_prompt_template = read_resource_file(constants.INFORMATION_GATHERING_PROMPT_FILE_PATH)
-        information_gathering_prompt = openai_provider.assemble_prompt(template_str=information_gathering_prompt_template, params=self.pipeline_info)
+        information_gathering_prompt = self.llm_provider.assemble_prompt(template_str=information_gathering_prompt_template, params=self.pipeline_info)
 
         logger.info(f"Information Gathering Prompt: {information_gathering_prompt}")
 
         # Information gathering llm process
 
-        response, _ = openai_provider.create_completion(messages=information_gathering_prompt)
+        response, _ = self.llm_provider.create_completion(messages=information_gathering_prompt)
         processed_response = parse_semi_formatted_text(response)
         logger.info(f"Information Gathering Response: {processed_response}")
 
@@ -185,12 +184,12 @@ class PipelineRunner:
         self.pipeline_info[constants.IMAGE_INTRODUCTION] = image_introduction
 
         self_reflection_prompt_template = read_resource_file(constants.SELF_REFLECTION_PROMPT_FILE_PATH)
-        self_reflection_prompt = openai_provider.assemble_prompt(template_str=self_reflection_prompt_template, params=self.pipeline_info)
+        self_reflection_prompt = self.llm_provider.assemble_prompt(template_str=self_reflection_prompt_template, params=self.pipeline_info)
 
         logger.info(f"Self Reflection Prompt: {self_reflection_prompt}")
 
         # Self reflection llm process
-        response, _ = openai_provider.create_completion(messages=self_reflection_prompt)
+        response, _ = self.llm_provider.create_completion(messages=self_reflection_prompt)
         processed_response = parse_semi_formatted_text(response)
         logger.info(f"Self Reflection Response: {processed_response}")
 
@@ -228,12 +227,12 @@ class PipelineRunner:
         self.pipeline_info[constants.IMAGE_INTRODUCTION] = image_introduction
 
         self_reflection_prompt_template = read_resource_file(constants.TASK_INFERENCE_PROMPT_FILE_PATH)
-        self_reflection_prompt = openai_provider.assemble_prompt(template_str=self_reflection_prompt_template, params=self.pipeline_info)
+        self_reflection_prompt = self.llm_provider.assemble_prompt(template_str=self_reflection_prompt_template, params=self.pipeline_info)
 
         logger.info(f"Task Inference Prompt: {self_reflection_prompt}")
 
         # Task inference llm process
-        response, _ = openai_provider.create_completion(messages=self_reflection_prompt)
+        response, _ = self.llm_provider.create_completion(messages=self_reflection_prompt)
         processed_response = parse_semi_formatted_text(response)
         logger.info(f"Task Inference Response: {processed_response}")
 
@@ -266,12 +265,12 @@ class PipelineRunner:
         self.pipeline_info[constants.IMAGE_INTRODUCTION] = image_introduction
 
         action_planning_prompt_template = read_resource_file(constants.ACTION_PLANNING_PROMPT_FILE_PATH)
-        action_planning_prompt = openai_provider.assemble_prompt(template_str=action_planning_prompt_template, params=self.pipeline_info)
+        action_planning_prompt = self.llm_provider.assemble_prompt(template_str=action_planning_prompt_template, params=self.pipeline_info)
 
         logger.info(f"Action Planning Prompt: {action_planning_prompt}")
 
         # Action planning llm process
-        response, _ = openai_provider.create_completion(messages=action_planning_prompt)
+        response, _ = self.llm_provider.create_completion(messages=action_planning_prompt)
         processed_response = parse_semi_formatted_text(response)
         logger.info(f"Action Planning Response: {processed_response}")
 
