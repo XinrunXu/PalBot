@@ -2,7 +2,7 @@ from pal_agent.log.logger import Logger
 from pal_agent.config.config import Config
 from pal_agent.environment.palbot.skill_registry import register_skill
 from hardware.audio_manager import AudioManager
-from hardware.driver.multi_dynamixel_controller import MultiDynamixelController
+from hardware.multi_dynamixel_controller import MultiDynamixelController
 from pal_agent.provider.audio.asr_provider import AudioTranscriber
 from pal_agent.provider.audio.tts_provider import TextToSpeechProvider
 
