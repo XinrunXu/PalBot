@@ -125,15 +125,22 @@ class Speaker(metaclass=Singleton):
 
             sd.wait()  # Ensure all audio is played before proceeding
 
-        except Exception as e:
-            self.stop()
-            raise RuntimeError(f"Error during playback: {str(e)}")
-        finally:
             self._is_playing = False
+
+            return "True"
+
+        except Exception as e:
+
+            self.stop()
+            logger.error(f"Error during playback: {str(e)}")
+            self._is_playing = False
+            return f"Error during playback: {str(e)}"
+
 
     def is_initialized(self) -> bool:
         """Check if the speaker is initialized."""
         return self.device_id is not None and self.sample_rate is not None
+
 
     def stop(self) -> None:
         """Stop all ongoing audio playback."""

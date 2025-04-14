@@ -1,3 +1,7 @@
+# Hardware parameters
+ROBOT_DEVICE_NAME = '/dev/ttyUSB1'
+ROBOT_DEVICE_PORT = "/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT763GYX-if00-port0"
+
 # Audio parameters
 AUDIO_TEST_FILE_PATH = "./res/file/openai-fm-verse-medieval-knight.wav"
 SPEAKER_NAME = 'UACDemoV1.0'

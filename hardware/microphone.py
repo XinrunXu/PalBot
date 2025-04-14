@@ -109,6 +109,7 @@ class Microphone(metaclass=Singleton):
 
 
 if __name__ == '__main__':
+
     mic = Microphone()
     mic.init()
 

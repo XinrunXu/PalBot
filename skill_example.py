@@ -63,7 +63,7 @@ class PipelineRunner:
                                     skill_num=config.skill_configs[constants.SKILL_CONFIG_MAX_COUNT],
                                     screen_type=constants.GENERAL_GAME_INTERFACE)
 
-        self.skill_library = self.gm.get_skill_information(skills, False)
+        self.skill_library = self.gm.get_skill_information(skills, skill_library_with_code=False)
         self.pipeline_info[constants.SKILL_LIBRARY] = self.skill_library
         logger.info(f"Skill library retrieved: {self.skill_library}")
 

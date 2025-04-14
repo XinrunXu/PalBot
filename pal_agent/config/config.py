@@ -47,6 +47,9 @@ class Config(metaclass = Singleton):
         self.video_fps = 8
         self.frames_per_slice = 1000
 
+        # Skill_data
+        self.skill_data_path = './res/skills/data/'
+
         self._set_dirs()
 
     def load_env_config(self, env_config_path):

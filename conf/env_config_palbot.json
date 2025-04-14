@@ -4,7 +4,16 @@
     "skill_registry_name": "pal_agent.environment.palbot.skill_registry.RobotSkillRegistry",
     "skill_configs": {
         "skill_names_basic": [
-            "speak"
+            "speak",
+            "cheer_up",
+            "dance",
+            "fight",
+            "hug",
+            "love_you_gesture",
+            "nod",
+            "shake_head_to_deny",
+            "shake_right_hand",
+            "wave_left_hand"
         ]
     }
 }
