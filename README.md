@@ -1,3 +1,8 @@
+# PalBot
+
+![PalBot Framework](./res/file/PalBot%20Framework.png)
+
+
 # 🚀 Get Started
 ## Installation of Environment
 
