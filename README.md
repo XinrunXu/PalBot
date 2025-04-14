@@ -2,6 +2,11 @@
 
 ![PalBot Framework](./res/file/PalBot%20Framework.png)
 
+**Demo Video:**
+
+[Skill Library Showcase](./res/file/video/Skill%20Library.mp4)
+[Pick up Trash Showcase](./res/file/video/Pick%20up%20Trash.mp4)
+[Dialog Showcase](./res/file/video/Dialog.mp4)
 
 # 🚀 Get Started
 ## Installation of Environment
