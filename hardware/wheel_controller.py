@@ -67,8 +67,8 @@ class WheelController(metaclass=Singleton):
 
         # a hueristic strategy, because the robot is not very accurate, usually short
         # distance command is 0.8 of the real distance
-        x = x / 0.8
-        y = y / 0.5
+        x = x / 0.8 * 2
+        y = y / 0.5 * 2
 
         # transform cm to mm and degrees to radians
         x_mm = x * 10

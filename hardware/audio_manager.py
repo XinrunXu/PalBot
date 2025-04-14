@@ -1,8 +1,9 @@
 from hardware.microphone import Microphone
 from hardware.speaker import Speaker
+from pal_agent.utils import Singleton
 
 
-class AudioManager:
+class AudioManager(metaclass=Singleton):
 
     _microphone : Microphone = None
     _speaker : Speaker = None

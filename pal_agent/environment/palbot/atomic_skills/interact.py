@@ -1,3 +1,6 @@
+import numpy as np
+import sounddevice as sd
+
 from pal_agent.log.logger import Logger
 from pal_agent.config.config import Config
 from pal_agent.environment.palbot.skill_registry import register_skill
@@ -33,11 +36,32 @@ def speak(text: str):
     return True
 
 
+@register_skill("listen")
+def listen():
+    """
+    The robot listens and transcribes the audio input.
+    """
+
+    duration = 0.5
+    freq = 440
+    samples = int(duration * audio_manager.get_speaker().sample_rate)
+    tone = 0.5 * np.sin(2 * np.pi * freq * np.linspace(0, duration, samples))
+    sd.play(tone, samplerate=audio_manager.get_speaker().sample_rate, device=audio_manager.get_speaker().device_id)
+    sd.wait()
+
+    android_audio_data, sample_rate = audio_manager.get_microphone().record_audio(5)
+    text = asr_transcriber.transcribe_pcm_data(android_audio_data, sample_rate)
+    logger.info(f"Transcribed text: {text}")
+
+    return text
+
+
 @register_skill("cheer_up")
 def cheer_up():
     """
     The robot performs a cheer up gesture.
     """
+
     logger.info("Performing cheer up gesture.")
     exec_info = multi_dynamixel_controller.replay_trajectory(name="cheer_up")
 
@@ -151,6 +175,7 @@ def move(x: float, y: float, z: float):
 
 __all__ = [
     "speak",
+    "listen",
     "cheer_up",
     "dance",
     "fight",

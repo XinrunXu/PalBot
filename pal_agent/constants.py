@@ -16,6 +16,8 @@ TTS_VOICE = "sage"
 TTS_INSTRUCTIONS =  """Affect/personality: A cheerful guide \n\nTone: Friendly, clear, and reassuring, creating a calm atmosphere and making the listener feel confident and comfortable.\n\nPronunciation: Clear, articulate, and steady, ensuring each instruction is easily understood while maintaining a natural, conversational flow.\n\nPause: Brief, purposeful pauses after key instructions (e.g., \"cross the street\" and \"turn right\") to allow time for the listener to process the information and follow along.\n\nEmotion: Warm and supportive, conveying empathy and care, ensuring the listener feels guided and safe throughout the journey."""
 ASR_MODEL = "gpt-4o-mini-transcribe"
 
+IMAGE_TEST_FILE_PATH = "./res/file/test_image.jpg"
+
 OPENAI_TEMPRATURE = 1.0
 OPENAI_SEED = 42
 OPENAI_MAX_TOKENS = 1024
@@ -28,6 +30,7 @@ INFORMATION_GATHERING_PROMPT_FILE_PATH = './res/prompts/information_gathering.pr
 SELF_REFLECTION_PROMPT_FILE_PATH = './res/prompts/self_reflection.prompt'
 TASK_INFERENCE_PROMPT_FILE_PATH = './res/prompts/task_inference.prompt'
 ACTION_PLANNING_PROMPT_FILE_PATH = './res/prompts/action_planning.prompt'
+DIALOGUE_PROMPT_FILE_PATH = './res/prompts/dialogue.prompt'
 
 IMAGE_INTRODUCTION = 'image_introduction'
 IMAGE_INTRO = 'image_intro'
