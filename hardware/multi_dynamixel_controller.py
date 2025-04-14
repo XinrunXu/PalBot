@@ -17,7 +17,7 @@ ROBOT_CONFIG_rad = convert_degree_to_rad(ROBOT_CONFIG_degree)
 
 class MultiDynamixelController(metaclass=Singleton):
 
-    def __init__(self, device_name=constants.ROBOT_DEVICE_NAME, baudrate=57600):
+    def __init__(self, device_name=constants.ROBOT_DEVICE_PORT, baudrate=57600):
         self.ids = [j.motor_id for j in ROBOT_CONFIG_rad]
         self.DEVICENAME = device_name
         self.BAUDRATE = baudrate
@@ -141,7 +141,7 @@ class MultiDynamixelController(metaclass=Singleton):
 
 def main():
 
-    controller = MultiDynamixelController(device_name=constants.ROBOT_DEVICE_PORT)
+    controller = MultiDynamixelController()
 
     parser = argparse.ArgumentParser(description="Replay recorded trajectory with Dynamixel motors.")
     parser.add_argument("-n", "--name", type=str, required=True, help="Trajectory file name (no extension)")

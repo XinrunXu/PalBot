@@ -3,12 +3,6 @@ load_dotenv()
 
 from pal_agent.log.logger import Logger
 from pal_agent.config.config import Config
-from pal_agent.environment.palbot.skill_registry import register_skill
-from hardware.audio_manager import AudioManager
-from hardware.multi_dynamixel_controller import MultiDynamixelController
-from pal_agent.provider.audio.asr_provider import AudioTranscriber
-from pal_agent.provider.audio.tts_provider import TextToSpeechProvider
-from hardware.wheel_controller import WheelController
 from pal_agent.provider.llm.llm_factory import LLMFactory
 from pal_agent.environment.skill_registry_factory import SkillRegistryFactory
 from pal_agent.config.config import Config
@@ -38,13 +32,6 @@ class DialogueRunner:
 
         self.pipeline_info = {}
         self.count = 0
-
-        self.audio_manager = AudioManager()
-        self.audio_manager.init()
-        self.tts_processor = TextToSpeechProvider()
-        self.asr_transcriber = AudioTranscriber()
-        # self.multi_dynamixel_controller = MultiDynamixelController() # !!!
-        # self.wheel_controller = WheelController() # !!!
 
         lf = LLMFactory()
         self.llm_provider, self.embedding_provider = lf.create(self.llm_provider_config_path)
@@ -102,6 +89,10 @@ class DialogueRunner:
 
             self.gm.audio_log(palbot_reply)
 
+            action_info = [self.pipeline_info["action"]]
+            self.memory.add_recent_history_kv(key=constants.PRE_ACTION, info=action_info)
+            response = self.skill_execute()
+
     def generate_palbot_reply(self, user_reply):
         logger.info(f"Generating PALBOT reply for: {user_reply}")
 
@@ -128,6 +119,7 @@ class DialogueRunner:
 
             self.pipeline_info["previous_conversations_summary"] = processed_response.get("previous_conversations_summary")
             self.pipeline_info["palbot_reply"] = processed_response.get("palbot_reply")
+            self.pipeline_info["action"] = processed_response.get("action")
 
         else:
             logger.warning("No response generated.")
