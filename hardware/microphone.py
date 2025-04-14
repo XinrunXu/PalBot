@@ -13,12 +13,12 @@ logger = Logger()
 
 class Microphone(metaclass=Singleton):
     def __init__(self) -> None:
-        self.max_buffer_size = 1300  # 30秒音频缓冲
+        self.max_buffer_size = 1300  # 30 sec audio buffer
         self.buffer = deque(maxlen=self.max_buffer_size)
         self.buffer_lock = threading.Lock()
         self.audio_thread = None
         self.audio_thread_running = False
-        self.sample_rate = 44100  # 明确指定采样率
+        self.sample_rate = 44100
         self.device_id = None
         self.channels = 1
         self.dtype = 'int16'
@@ -37,7 +37,7 @@ class Microphone(metaclass=Singleton):
         self.device_id = self.check_devices()
         device_info = sd.query_devices(self.device_id, 'input')
 
-        # 使用设备支持的最佳采样率
+        # Use the best sample rate supported by the device
         self.sample_rate = int(device_info['default_samplerate'])
         if self.sample_rate not in [44100, 48000]:
             self.sample_rate = 44100
@@ -57,7 +57,7 @@ class Microphone(metaclass=Singleton):
         if status:
             logger.info(f"Audio callback status: {status}")
 
-        # 移除噪声门限检查，直接保存所有数据
+        # Remove noise gate threshold check
         with self.buffer_lock:
             self.buffer.append(indata.copy())
 
@@ -76,11 +76,11 @@ class Microphone(metaclass=Singleton):
 
     def record_audio(self, duration: float = 5.0) -> tuple[np.ndarray, int]:
         start_time = time.time()
-        self.buffer.clear()  # 开始前清空缓冲区
+        self.buffer.clear()  # Clear the buffer before recording
 
-        # 精确等待所需时长
+        # Wait for the specified duration
         while (time.time() - start_time) < duration:
-            time.sleep(0.05)  # 适度休眠减少CPU占用
+            time.sleep(0.05)  # Sleep to avoid busy waiting
 
         with self.buffer_lock:
             if not self.buffer:
@@ -89,9 +89,9 @@ class Microphone(metaclass=Singleton):
 
             audio_data = np.concatenate(self.buffer, axis=0)
             actual_duration = len(audio_data) / self.sample_rate
-            logger.info(f"实际采集时长: {actual_duration:.2f}秒")
+            logger.info(f"Collected {len(audio_data)} frames of audio data")
 
-            # 如果采集时长不足，补零
+            # If the actual duration is less than the requested duration, pad with silence
             if actual_duration < duration:
                 logger.warning(f"Only {actual_duration:.2f} seconds of audio collected, padding with silence")
                 silence_len = int((duration - actual_duration) * self.sample_rate)
@@ -113,7 +113,6 @@ if __name__ == '__main__':
     mic = Microphone()
     mic.init()
 
-    # 录制5秒音频
     audio_data, sr = mic.record_audio(5.0)
 
     from hardware.speaker import Speaker
@@ -122,14 +121,12 @@ if __name__ == '__main__':
     speaker.play_audio(audio_data, sr)
 
     # if audio_data is not None:
-    #     # 保存为WAV文件
     #     sd.play(audio_data, sr)
     #     sd.wait()
 
     #     import soundfile as sf
     #     time_str = time.strftime("%Y%m%d-%H%M%S")
-    #     record_file = 'tmp/recorded_audio_' + time_str + '.wav'
+    #     record_file = 'runs/recorded_audio_' + time_str + '.wav'
     #     sf.write(record_file, audio_data, sr)
-    #     print("音频已保存为: ", record_file)
 
     mic.stop()

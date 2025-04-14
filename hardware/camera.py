@@ -103,7 +103,7 @@ def main():
     print(f"Intrinsics Matrix: {intrinsics_matrix}")
 
     import time
-    color_img_path = "tmp/" + time.strftime("%Y%m%d-%H%M%S") + "_color.jpg"
+    color_img_path = "runs/" + time.strftime("%Y%m%d-%H%M%S") + "_color.jpg"
     cv2.imwrite(color_img_path, color_frame)
 
     camera.close()

@@ -209,7 +209,7 @@ class OpenAIProvider(LLMProvider, EmbeddingProvider):
         try:
             encoding = tiktoken.encoding_for_model(model_name)
         except KeyError:
-            logging.warning(f"Warning: model {model_name} not found. Using cl100k_base encoding.")
+            logger.warning(f"Warning: model {model_name} not found. Using cl100k_base encoding.")
             model = "cl100k_base"
             encoding = tiktoken.get_encoding(model)
         for i, text in enumerate(texts):
@@ -690,93 +690,3 @@ class OpenAIProvider(LLMProvider, EmbeddingProvider):
         # elif config.DEFAULT_MESSAGE_CONSTRUCTION_MODE == constants.MESSAGE_CONSTRUCTION_MODE_PARAGRAPH:
         #     return self.assemble_prompt_paragraph(template_str=template_str, params=params)
         return self.assemble_prompt_tripartite(template_str=template_str, params=params)
-
-
-# ----------------------- 测试用例 -----------------------
-
-def test_image():
-
-    get_text_template = read_resource_file("./res/prompts/information_gathering.prompt")
-
-    print("get_text_template:", get_text_template)
-
-    text_input = {}
-
-    image_introduction = [
-        {
-            "image_intro": "Here is the first image:",
-            "image_path": constants.PICTURE_TEST_FILE_PATH_1,
-            "assistant": "这是第一张图片。",
-        },
-        {
-            "image_intro": "Here is the second image:",
-            "image_path": constants.PICTURE_TEST_FILE_PATH_3,
-            "assistant": "这是第二张图片。",
-        }
-    ]
-
-    text_input["image_introduction"] = image_introduction
-    text_input["task_description"] = "请介绍一下这两张图片。"
-    text_input["subtask_description"] = "请描述一下这两张图片的内容。"
-
-
-    message_prompts = openai_provider.assemble_prompt(template_str=get_text_template, params=text_input)
-    # print("message_prompts:", message_prompts)
-
-    try:
-        response, info = openai_provider.create_completion(messages=message_prompts)
-        print("\n[图片问答测试]")
-        print("Response:", response)
-        # print("Info:", info)
-
-    except Exception as e:
-        print(f"Error in completion: {e}")
-
-
-if __name__ == '__main__':
-
-    from dotenv import load_dotenv
-    load_dotenv()
-
-    # 初始化 OpenAIProvider
-
-    openai_provider = OpenAIProvider()
-    openai_provider.init_provider()
-
-    # 1. 测试文本补全
-    # messages = [{"role": "user", "content": "请介绍一下北京"}]
-    # response, info = openai_provider.create_completion(messages=messages)
-    # print("\n[文本补全测试]")
-    # print("Response:", response)
-    # print("Info:", info)
-
-    # # 2. 测试异步文本补全
-    # async def test_async_completion():
-    #     messages = [{"role": "user", "content": "请介绍一下上海"}]
-    #     response, info = await openai_provider.create_completion_async(messages=messages)
-    #     print("\n[异步文本补全测试]")
-    #     print("Response:", response)
-    #     print("Info:", info)
-
-    # asyncio.run(test_async_completion())
-
-    # # 3. 测试 Embedding
-    # text = "这是一段用于测试 Embedding 的文本。"
-    # embedding = openai_provider.embed_query(text)
-    # print("\n[Embedding 测试]")
-    # print("Embedding:", embedding[:10], "...")  # 打印前10个维度
-
-    # 4. 测试 图片问答
-
-    test_image() # 运行测试函数
-
-
-
-
-
-
-
-
-
-
-

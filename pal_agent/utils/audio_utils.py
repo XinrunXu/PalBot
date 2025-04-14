@@ -51,4 +51,4 @@ if __name__ == "__main__":
     from pal_agent import constants
     pcm_data, sample_rate = read_wav_file(constants.AUDIO_TEST_FILE_PATH)
 
-    pcm2file(pcm_data=pcm_data, sample_rate=sample_rate, output_file="tmp/output.wav")  # Convert PCM to WAV, replace with desired format
+    pcm2file(pcm_data=pcm_data, sample_rate=sample_rate, output_file="runs/output.wav")  # Convert PCM to WAV, replace with desired format

@@ -103,7 +103,7 @@ COLOURS = {
     "magenta": (255, 0, 255),
 }
 
-ACTION_GUIDANCE = 'action_guidance' # !!!
+ACTION_GUIDANCE = 'action_guidance'
 ENVIRONMENT_NAME = 'env_name'
 ENVIRONMENT_IS_ROBOT = 'is_robot'
 GENERAL_GAME_INTERFACE = 'general game interface without any menu'

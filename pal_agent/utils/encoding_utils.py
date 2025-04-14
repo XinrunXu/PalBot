@@ -8,6 +8,9 @@ import cv2
 from PIL import Image
 
 from pal_agent.utils.file_utils import assemble_project_path
+from pal_agent.log.logger import Logger
+
+logger = Logger()
 
 def encode_base64(payload):
 

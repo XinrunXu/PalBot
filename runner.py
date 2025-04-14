@@ -46,8 +46,7 @@ class PipelineRunner:
         # Init memory
         self.memory = LocalMemory(memory_path=config.work_dir,
                                   max_recent_steps=config.max_recent_steps)
-        # self.memory.load(config.memory_load_path) # !!! zan shi bu hui yong dao yi qian de memory
-
+        # self.memory.load(config.memory_load_path) # !!!
         srf = SkillRegistryFactory()
         srf.register_builder(config.env_short_name, config.skill_registry_name)
         self.skill_registry = srf.create(config.env_short_name, skill_configs=config.skill_configs, embedding_provider=self.embedding_provider)
@@ -309,7 +308,7 @@ if __name__ == "__main__":
     # Example usage
     llm_provider_config_path = "./conf/openai_config.json"
     embed_provider_config_path = "./conf/openai_config.json"
-    task_description = "Descripe the image you see. If you receive two images, please compare them and tell me the difference. If you see a game interface, please describe the game interface. If you see a robot, please describe the robot. If you see a person, please describe the person. If you see a car, please describe the car. If you see a house, please describe the house. If you see a tree, please describe the tree. If you see a flower, please describe the flower. If you see a mountain, please describe the mountain. If you see a river, please describe the river. If you see an ocean, please describe the ocean. If you see a sky, please describe the sky. If you see a cloud, please describe the cloud. If you see a sun, please describe the sun. If you see a moon, please describe the moon. If you see a star, please describe the star. If you see a rainbow, please describe the rainbow. If you see a lightning bolt, please describe the lightning bolt. NEVER SAY TASK is SUCCESSFUL."
+    task_description = "Descripe the image you see. NEVER SAY TASK is SUCCESSFUL."
     pipeline_runner = PipelineRunner(
                         llm_provider_config_path=llm_provider_config_path,
                         embed_provider_config_path=embed_provider_config_path,

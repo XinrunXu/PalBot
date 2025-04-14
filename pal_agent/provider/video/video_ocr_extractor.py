@@ -26,7 +26,7 @@ class VideoOCRExtractorProvider(BaseProvider):
     def __init__(self):
         super(VideoOCRExtractorProvider, self).__init__()
 
-        self.crop_region = [0, 0, 1920, 1080] # Default screen region  # !!!
+        self.crop_region = [0, 0, 640, 480]  # Default screen region
         self.reader = easyocr.Reader(['en', 'ch_sim'])
 
 

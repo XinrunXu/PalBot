@@ -1,7 +1,7 @@
 import importlib
 
 from pal_agent.utils import Singleton
-from pal_agent.environment.palbot.atomic_skills import *  # !!!
+from pal_agent.environment.palbot.atomic_skills import *
 
 class SkillRegistryFactory(metaclass=Singleton):
 

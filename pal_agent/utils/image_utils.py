@@ -11,23 +11,15 @@ import matplotlib.pyplot as plt
 import mss
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageChops
-# from scipy.ndimage import binary_fill_holes
 import supervision as sv
 import torch
 from torchvision.ops import box_convert
-#import imutils
-
-
-# from cradle.gameio import IOEnvironment
-# # from cradle.utils.object_utils import groundingdino_detect
-
 
 from pal_agent import constants
 from pal_agent.config.config import Config
 from pal_agent.log.logger import Logger
 
 config = Config()
-# io_env = IOEnvironment()
 logger = Logger()
 
 

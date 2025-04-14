@@ -7,6 +7,7 @@ from hardware.speaker import Speaker
 from pal_agent import constants
 from pal_agent.utils import Singleton
 from pal_agent.log.logger import Logger
+from pal_agent.utils.audio_utils import read_wav_file
 
 logger = Logger()
 

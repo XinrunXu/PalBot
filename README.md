@@ -1,7 +1,7 @@
 # 🚀 Get Started
 ## Installation of Environment
 
-```
+```bash
 conda create -n palbot-dev python=3.10.16
 conda activate palbot-dev
 
@@ -14,8 +14,8 @@ pip install -r requirements.txt
 
 Download the project and run the following command to start the project:
 
-```
-python - m runner
+```bash
+python -m runner
 ```
 
 # 🌲 Project Structure
@@ -86,7 +86,6 @@ PalBot/
 │   ├── prompts/                          # Prompt files
 │   └── skills/                           # Skill files
 ├── runs/                                 # Log files
-├── tmp/                                  # Temporary files
 ├── .env                                  # Environment variables
 ├── .gitignore                            # Git ignore file
 ├── README.md                             # Project README
@@ -97,7 +96,9 @@ PalBot/
 # Acknowledgements
 
 This project is based on the following projects:
+
 **Cradle:** [Website](https://baai-agents.github.io/Cradle/), [GitHub](https://github.com/BAAI-Agents/Cradle)
+
 **Being-0:** [Website](https://beingbeyond.github.io/being-0/), [GitHub](https://github.com/BeingBeyond/being-0)
 
 # Citation

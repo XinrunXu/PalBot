@@ -280,11 +280,11 @@ class SkillRegistry(metaclass=Singleton):
         try:
             parsed = ast.parse(expression, mode='eval')
 
-            # 处理单个函数调用
+            # Process single function call
             if isinstance(parsed.body, ast.Call):
                 return self.extract_function_info(expression)
 
-            # 处理函数调用列表
+            # Process list of function calls
             elif isinstance(parsed.body, ast.List):
                 skills_list = []
                 for call in parsed.body.elts:
@@ -295,7 +295,6 @@ class SkillRegistry(metaclass=Singleton):
                         raise ValueError(f"List contains non-call item: {ast.unparse(call)}")
                 return skills_list
 
-            # 处理其他情况
             else:
                 raise ValueError(f"Expected function call or list of calls, got: {type(parsed.body).__name__}")
 

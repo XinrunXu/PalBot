@@ -215,7 +215,8 @@ class PalbotInterface:
             return exec_info
 
         params = deepcopy(self.memory.working_area)
-        # cur_timestamp = params[constants.CUR_SCREENSHOT_TIMESTAMP] # !!!
+        # cur_timestamp = params[constants.CUR_SCREENSHOT_TIMESTAMP]
+
         cur_timestamp = None
 
         skill, parameters = self.weak_skill_steps_parse(skill)

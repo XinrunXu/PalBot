@@ -94,7 +94,7 @@ class VideoRecordProvider(BaseProvider):
         #     self.screen_region = config.env_region
         # else:
         #     self.screen_region = config.env_region
-        self.screen_region = [0, 0, 1920, 1080] # Default screen region  # !!!
+        self.screen_region = [0, 0, 640, 480]
         self.frame_size = (self.screen_region[2], self.screen_region[3])
 
         self.current_frame_id = -1
