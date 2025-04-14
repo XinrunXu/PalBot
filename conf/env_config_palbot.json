@@ -1,5 +1,6 @@
 {
     "env_short_name": "palbot",
+    "user_name": "Chaoyi",
     "is_robot": true,
     "skill_registry_name": "pal_agent.environment.palbot.skill_registry.RobotSkillRegistry",
     "skill_configs": {
@@ -13,7 +14,8 @@
             "nod",
             "shake_head_to_deny",
             "shake_right_hand",
-            "wave_left_hand"
+            "wave_left_hand",
+            "move"
         ]
     }
 }

@@ -60,6 +60,7 @@ class Config(metaclass = Singleton):
         print(f'Env Config: {self.env_config}')
 
         self.env_name = kget(self.env_config, constants.ENVIRONMENT_NAME, default='')
+        self.user_name = kget(self.env_config, constants.USER_NAME, default='')
         self.is_robot = kget(self.env_config, constants.ENVIRONMENT_IS_ROBOT)
         self.is_game = False
 

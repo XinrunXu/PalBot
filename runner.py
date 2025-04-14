@@ -40,6 +40,8 @@ class PipelineRunner:
 
     def set_internal_params(self):
 
+        self.pipeline_info[constants.TASK_DESCRIPTION] = self.task_description
+
         lf = LLMFactory()
         self.llm_provider, self.embedding_provider = lf.create(self.llm_provider_config_path)
 
@@ -63,11 +65,12 @@ class PipelineRunner:
                                     screen_type=constants.GENERAL_GAME_INTERFACE)
 
         self.skill_library = self.gm.get_skill_information(skills, False)
+
         self.pipeline_info[constants.SKILL_LIBRARY] = self.skill_library
         logger.info(f"Skill library retrieved: {self.skill_library}")
 
         self.palbot_interface = PalbotInterface()
-        self.gm.audio_log("Hello, I am PALBOT.")
+        self.gm.audio_log(f"Hello, {config.user_name}! I am PALBOT. How can I help you today?")
         # self.palbot_interface.audio_log(self.task_description)
 
         # self.skill_library = self.palbot_interface.retrieve_skill_library()
@@ -76,8 +79,7 @@ class PipelineRunner:
 
         # Init frame provider
         self.frame_provider = FrameProvider()
-        self.last_frame_path = self.frame_provider.get_current_frame_path()
-        self.current_frame_path = self.frame_provider.get_current_frame_path()
+        self.last_frame_path = self.current_frame_path = self.frame_provider.get_current_frame_path()
         self.pipeline_info[constants.IMAGE_PATH] = self.current_frame_path
 
         # Init skill execute provider
@@ -308,7 +310,9 @@ if __name__ == "__main__":
     # Example usage
     llm_provider_config_path = "./conf/openai_config.json"
     embed_provider_config_path = "./conf/openai_config.json"
-    task_description = "Descripe the image you see. NEVER SAY TASK is SUCCESSFUL."
+    task_description = "Descripe the image you see. " \
+    "Do not use speak()." \
+    "NEVER SAY TASK is SUCCESSFUL."
     pipeline_runner = PipelineRunner(
                         llm_provider_config_path=llm_provider_config_path,
                         embed_provider_config_path=embed_provider_config_path,

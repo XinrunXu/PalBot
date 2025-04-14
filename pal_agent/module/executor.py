@@ -72,12 +72,16 @@ class Executor(BaseProvider):
         #     print()
 
         if config.is_robot is True:
-            self.gm.audio_log(messages=skill_steps, is_skill=True)
-            time.sleep(.1)
+
+            if 'speak' not in str(pre_action):
+                self.gm.audio_log(messages=skill_steps, is_skill=True)
+                time.sleep(.1)
             # exec_info = self.robot_interface.execute_actions(skill_steps)
+
             exec_info = self.gm.execute_actions(skill_steps)
 
         else:
+
             exec_info = self.gm.execute_actions(skill_steps)
 
         # # > Post-processing

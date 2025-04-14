@@ -5,12 +5,14 @@ from hardware.audio_manager import AudioManager
 from hardware.multi_dynamixel_controller import MultiDynamixelController
 from pal_agent.provider.audio.asr_provider import AudioTranscriber
 from pal_agent.provider.audio.tts_provider import TextToSpeechProvider
+from hardware.wheel_controller import WheelController
 
 audio_manager = AudioManager()
 audio_manager.init()
 tts_processor = TextToSpeechProvider()
 asr_transcriber = AudioTranscriber()
 multi_dynamixel_controller = MultiDynamixelController()
+wheel_controller = WheelController()
 
 
 config = Config()
@@ -130,6 +132,23 @@ def wave_left_hand():
     return exec_info
 
 
+@register_skill("move")
+def move(x: float, y: float, z: float):
+    """
+    The robot moves in the specified direction.
+
+    Parameters:
+    - x: The distance to move in the x direction. unit: cm
+    - y: The distance to move in the y direction. unit: cm
+    - z: The angle to turn. unit: degrees
+    """
+
+    logger.info(f"Moving: x = {x}cm, y = {y}cm, z = {z} degrees")
+    exec_info = wheel_controller.move(x=x, y=y, z=z)
+
+    return exec_info
+
+
 __all__ = [
     "speak",
     "cheer_up",
@@ -140,5 +159,6 @@ __all__ = [
     "nod",
     "shake_head_to_deny",
     "shake_right_hand",
-    "wave_left_hand"
+    "wave_left_hand",
+    "move",
 ]

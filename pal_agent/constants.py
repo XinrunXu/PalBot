@@ -1,6 +1,11 @@
 # Hardware parameters
 ROBOT_DEVICE_NAME = '/dev/ttyUSB1'
 ROBOT_DEVICE_PORT = "/dev/serial/by-id/usb-FTDI_USB__-__Serial_Converter_FT763GYX-if00-port0"
+ROBOT_FREQ = 8
+ROBOT_VELOCITY = 80
+ROBOT_WHEEL_PORT = "/dev/ttyACM0"
+WHEEL_LINEAR_SPEED = 200
+WHEEL_ANGULAR_SPEED = 30
 
 # Audio parameters
 AUDIO_TEST_FILE_PATH = "./res/file/openai-fm-verse-medieval-knight.wav"
@@ -105,6 +110,7 @@ COLOURS = {
 
 ACTION_GUIDANCE = 'action_guidance'
 ENVIRONMENT_NAME = 'env_name'
+USER_NAME = 'user_name'
 ENVIRONMENT_IS_ROBOT = 'is_robot'
 GENERAL_GAME_INTERFACE = 'general game interface without any menu'
 

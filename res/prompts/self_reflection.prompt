@@ -28,7 +28,6 @@ You need to answer the following questions, step by step. Describe your reasonin
 1. What is the last executed action based on the text information above?
 2. Make use of the information gathered from the images to decide if you have completed the current subtask. Pay special attention to the error report for the last executed action.
 3. Was the last executed action successful? Give reasons to this conclusion. You must refer to the following rules:
-- If the last action executed was empty, then the previous action is deemed successful.
 - If the action seemed to have no effect, pay attention to whether the robot position changed or if any of its hands move during the action execution process.
 4. If the last action is not executed successfully, what was the most probable cause for it? You should give only one cause and refer to the following rules:
 - The reasoning to chose the last action was wrong.

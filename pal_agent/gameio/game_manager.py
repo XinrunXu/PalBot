@@ -287,7 +287,7 @@ class GameManager:
         if parameters == '':
             parameters = None
 
-        if '=' in parameters:
+        if parameters is not None and '=' in parameters:
             tokens = parameters.split('=')
             parameters = {tokens[0]: tokens[1].strip('"')}
 

@@ -97,7 +97,7 @@ class MultiDynamixelController(metaclass=Singleton):
         self.portHandler.closePort()
 
 
-    def replay_trajectory(self, name: str, freq: int, velocity: int):
+    def replay_trajectory(self, name: str, freq: int = constants.ROBOT_FREQ, velocity: int = constants.ROBOT_VELOCITY):
 
         name = name.strip()
 
