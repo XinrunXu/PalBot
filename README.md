@@ -6,9 +6,13 @@
 
 [Skill Library Showcase](./res/file/video/Skill%20Library.mp4)
 
+[Pick up Snack Showcase](./res/file/video/Pick%20up%20Snack.mp4)
+
 [Pick up Trash Showcase](./res/file/video/Pick%20up%20Trash.mp4)
 
 [Dialog Showcase](./res/file/video/Dialog.mp4)
+
+[Eyesight Tracking Showcase](./res/file/video/Eyesight%20Tracking.png)
 
 # 🚀 Get Started
 ## Installation of Environment
