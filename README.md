@@ -10,6 +10,8 @@
 
 [Pick up Trash Showcase](./res/file/video/Pick%20up%20Trash.mp4)
 
+[Delivery a Birthday Card Showcase](./res/file/video/Delivery%20a%20Birthday%20Card.mp4)
+
 [Dialog Showcase](./res/file/video/Dialog.mp4)
 
 [Eyesight Tracking Showcase](./res/file/video/Eyesight%20Tracking.png)
